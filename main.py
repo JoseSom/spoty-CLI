@@ -1,7 +1,5 @@
-import os
-from dotenv import load_dotenv
+import Token
 
-load_dotenv()
-
-client_id = os.getenv("CLIENT_ID")
-client_secret = os.getenv("CLIENT_SECRET")
+Token.load_env()
+obtain_token = Token.get_token()
+header_token = Token.get_auth_header(obtain_token)
