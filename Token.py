@@ -5,8 +5,7 @@ from dotenv import load_dotenv
 from requests import post
 
 
-def load_env():
-    load_dotenv()
+load_dotenv()
 
 
 client_id = os.getenv("CLIENT_ID")

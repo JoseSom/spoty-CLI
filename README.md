@@ -67,3 +67,21 @@ Las credenciales se ocuparan de la siguiente manera:
     grant_type: 'client_credentials'
 ```
 
+# API
+
+Para revisar los endpoints que podemos consultar podemos entrar en: https://developer.spotify.com/console/
+
+Principalmente ocuparemos el endpoint de search (GET): 	https://api.spotify.com/v1/search 
+
+El cual nos permitira poder buscar los id que se ocupan en los demas enpoints
+
+Requiere lo siguiente:
+```
+   *q : lo que se va a buscar
+   *type: puede se audio, artista
+   market: ES, US, idioma
+   limit: 10
+   offset: 5
+   
+   *obligatorio
+```
