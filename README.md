@@ -41,3 +41,29 @@ Para hacer request ocuparemos **_Requests_** siendo esta una libreria HTTP
 pip install requests
 ```
 
+# Client Credentials Flow
+Las credenciales se ocuparan de la siguiente manera:
+
+1. Al app solicita un token de acceso mandando 3 cosas: 
+   1. client id
+   2. client secret
+   3. grant_type
+2. El servicio de cuentas de spotify regresa el token de acceso con una expiracion
+3. Con el token de acceso podemos enviar solicitudes a la API de Spotify 
+4. La API nos regresa un objeto en formato JSON
+
+### Request Authorization
+1. Se envia una peticion **_POST_** a
+```
+    url: 'https://accounts.spotify.com/api/token'
+```
+2. Con los siguientes **_headers_**
+```
+    Authorization: Basic <base64 encoded client_id:client_secret>
+    Content-Type:  application/x-www-form-urlencoded
+```
+3. Y con el siguiente body
+```
+    grant_type: 'client_credentials'
+```
+
