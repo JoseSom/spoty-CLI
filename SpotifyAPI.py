@@ -31,7 +31,7 @@ def sorted_dictionary_of_songs(songs):
     map_songs = {}
 
     for idx, song in enumerate(songs):
-        map_songs[idx] = (song['popularity'], song['name'] , song['duration_ms'])
+        map_songs[idx + 1] = (song['popularity'], song['name'] , song['duration_ms'])
 
     # En algunas ocasiones no trae la lista de forma ordenada.
     sorted_map_songs = {key: value for key, value in sorted(map_songs.items(), key=lambda item: item[1], reverse=True)}

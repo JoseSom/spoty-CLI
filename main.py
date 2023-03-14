@@ -1,6 +1,6 @@
 import SpotifyAPI
 from Token import get_token
-from utils import divisor, welcome
+from utils import divisor, welcome, segundos_a_segundos_minutos_y_horas
 
 token_obtained = get_token()
 
@@ -16,10 +16,21 @@ def save_songs_process():
             flag = True
             continue
 
-        id_select_song = input("Ingresa el numero de la cancion: ")
+        id_select_song = int(input("Ingresa el numero de la cancion: "))
         list_songs.append(id_select_song)
 
     return list_songs
+
+
+def mostrar_duracion_playlist(top_ten_songs, list_of_songs):
+    playlist = []
+    duracion = 0
+    for index in list_of_songs:
+        if index in top_ten_songs:
+            duracion += (top_ten_songs[index][2])
+            playlist.append(top_ten_songs[index][1])
+
+    return playlist, segundos_a_segundos_minutos_y_horas(duracion)
 
 
 def invoke_main_menu(option):
@@ -30,14 +41,16 @@ def invoke_main_menu(option):
             top_ten_songs = get_top_ten_songs_by_artist()
             divisor()
             list_of_songs = save_songs_process()
-
+            divisor()
+            playlist, duracion = mostrar_duracion_playlist(top_ten_songs, list_of_songs)
+            print(f"Disfruta tus canciones : {playlist} con una duracion de: {duracion}")
         case _:
             "No es una opcion valida"
 
 
 def print_dictionary_songs(dictionary_songs):
     for index, value in dictionary_songs.items():
-        print(f"{index + 1}.{value[1]} -> Popularity {value[0]}")
+        print(f"{index}.{value[1]} -> Popularity {value[0]}")
 
 
 def get_top_ten_songs_by_artist():
