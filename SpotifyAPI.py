@@ -2,8 +2,6 @@ import Token
 import json
 from requests import get
 
-obtain_token = Token.get_token()
-
 
 def search_for_artist(token, artist_name):
     url = "https://api.spotify.com/v1/search"
@@ -21,7 +19,7 @@ def search_for_artist(token, artist_name):
     return json_result
 
 
-def get_songs_by_artist(token, artist_id):
+def get_top_ten_songs_by_artist(token, artist_id):
     url = f"https://api.spotify.com/v1/artists/{artist_id}/top-tracks?country=US"
     headers = Token.get_auth_header(token)
     result = get(url, headers=headers)
@@ -29,9 +27,13 @@ def get_songs_by_artist(token, artist_id):
     return json_result
 
 
-result_clean = search_for_artist(obtain_token, "ACDC")
-artist_id = result_clean[0]["id"]
-songs = get_songs_by_artist(obtain_token, artist_id)
+def sorted_dictionary_of_songs(songs):
+    map_songs = {}
 
-for idx, song in enumerate(songs):
-    print(f"{idx + 1}. {song['name']} -> Popularity {song['popularity']}")
+    for idx, song in enumerate(songs):
+        map_songs[idx] = (song['popularity'], song['name'] , song['duration_ms'])
+
+    # En algunas ocasiones no trae la lista de forma ordenada.
+    sorted_map_songs = {key: value for key, value in sorted(map_songs.items(), key=lambda item: item[1], reverse=True)}
+
+    return sorted_map_songs
